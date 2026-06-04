@@ -21,9 +21,9 @@ with :
 
 ### Parallax Corrected Cubemaps(PCC)
 
-*Source's native cubemap implementation does not allow them to follow the player's perspective. While this is passable in most cases, tying the reflections to the player's view can increase realism, especially when using high-resolution reflections. A method to achieve this is called parallax correction.
+*The Original implementation cubemaps does not allow them to follow the player's perspective, making Reflection not accurate, Follow the reflection to the player's view make improve the realism, especially when using high-resolution reflections. A method to achieve this is called parallax correction.
 
-Parallax-corrected cubemaps use a bounding box brush to bake their reflection based on a specified area around them, and a custom shader to make use of it.
+Parallax-corrected cubemaps use a bounding box brush to bake their reflection based on a specified area around them.
 
 
 without:
@@ -39,18 +39,13 @@ with:
 
 *Parallax mapping (also known as offset mapping or virtual displacement mapping) is a shading technique that displaces the individual pixel height of a surface so that when you look at it at an angle, the high points will obscure the low points behind them, making it look three-dimensional. The height data for each pixel comes from a $parallaxmap texture, which needs to be created for each parallax mapped material.
 
+###SSAO(xegtao)
+
+###Volumetric
+
+###cluster forwards and volumetric
 
 
-### "My dynamic shadows update in low fps"
+###Light cooking
 
-* There is a cap on how many faces can get their shadows updated, and this cap is called the **shadow frame budget**. This is an optimization technique that prevents the game from lagging on low-end devices. You can increase the budget by using the `r_clustered_shadowframebudget` console command. Note that this will significantly lower your fps when used carelessly.
 
-### "Shadows glitch or flicker when a light is moving"
-
-* Clustered shadows update less frequently than the game itself, so if a moving clustered light entity cannot keep up updating the shadowmap, the shadows from that entity will flicker. This often happens in heavy maps with a lot of clustered lights, and rarely if the light peaks from a corner, especially when lighting up a huge area. There is no workaround other than not moving clustered lights too fast and using dynamic shadows only where necessary.
-
-### "Everything is completely broken/corrupted and I can't fix it"
-
-* Certain GPU models may have trouble running the clustered renderer. **If you experience this, let us know what GPU brand/model, operating system and other hardware specs you're using.** Clustered lights may act weird when running the game on Linux under DXVK on AMD platforms. However, the circumstances in which they break should not be possible in production.
-
-## If you have any issues that are not addressed in this article, make sure to report it to us on the [Strata issue tracker.](https://github.com/StrataSource/Engine/issues)
